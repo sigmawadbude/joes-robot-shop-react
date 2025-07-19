@@ -1,6 +1,7 @@
 import type { IProduct } from "./product.model";
 import "./Calalog.css";
 import { useState } from "react";
+import ProductDetails from "./ProductDetails";
 
 export default function Catalog() {
   const products: IProduct[] = [
@@ -179,15 +180,17 @@ export default function Catalog() {
     },
   ];
   const [filter, setFilter] = useState<string>('');
+  const [cart, setCart] = useState<IProduct[]>([]);
 
   const filteredProducts = filter === ''
     ? products
     : products.filter((product) => product.category === filter);
 
-  const getImageUrl = (product: IProduct) => {
-    if (!product) return '';
-    return `/assets/images/robot-parts/${product.imageName}`;
-  };
+  const handleNotify = (product: IProduct) => {
+    setCart([...cart, product]);
+    console.log(`Product added to cart: ${product.name}`);
+  }
+    
   return (
     <>
       <div className="container">
@@ -202,20 +205,7 @@ export default function Catalog() {
         <ul className="products">
           {filteredProducts.map((product, index) => (
             <li className="product-item" key={index}>
-              <div className="product">
-                <div className="product-details">
-                  <img src={getImageUrl(product)} alt={product?.name} />
-                  <div className="product-info">
-                    <div className="name">{product?.name}</div>
-                    <div className="description">{product?.description}</div>
-                    <div className="category">Part Type: {product?.category}</div>
-                  </div>
-                </div>
-                <div className="price">
-                  <div>{product?.price}</div>
-                  <button className="cta">Buy</button>
-                </div>
-              </div>
+              <ProductDetails product={product} onNotify={() => handleNotify(product) } />
             </li>
           ))}
         </ul>
