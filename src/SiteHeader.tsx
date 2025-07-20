@@ -7,7 +7,7 @@ export default function SiteHeader() {
                 <img className="logo" src="/assets/images/logo.png" alt="Logo" />
                 <a>Home</a>
                 <a href="">Catalog</a>
-                <div className="cart">
+                <div className="cartHeader">
                     <a href="">Cart</a>
                 </div>
             </div>

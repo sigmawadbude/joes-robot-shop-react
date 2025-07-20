@@ -21,7 +21,7 @@
   height: 65px;
 }
 
-.cart {
+.cartHeader {
   display: flex;
   position: relative;
 }

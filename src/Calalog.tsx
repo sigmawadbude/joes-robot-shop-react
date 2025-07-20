@@ -26,11 +26,10 @@ export default function Catalog() {
     ? products
     : products.filter((product) => product.category === filter);
 
-  const handleNotify = (product: IProduct) => {
-    cartService.addToCart(product);
+  const onNotify = (product: IProduct) => {
+    cartService.add(product);
     console.log(`Product added to cart: ${product.name}`);
   }
-    
   return (
     <>
       <div className="container">
@@ -45,7 +44,15 @@ export default function Catalog() {
         <ul className="products">
           {filteredProducts.map((product, index) => (
             <li className="product-item" key={index}>
-              <ProductDetails product={product} onNotify={() => handleNotify(product) } />
+              {/* <ProductDetails product={product} onNotify={() => handleNotify(product) } /> */}
+              <div className="product">
+                <ProductDetails product={product} />
+                <div className="price">
+                    <div className="{product.discount > 0 ? 'strikethrough' : ''}">${(product.price).toFixed(2)}</div>
+                    {product.discount > 0 && <div className="discount">${(product.price * (1 - product.discount)).toFixed(2)}</div>}
+                    <button className="cta" onClick={() => onNotify(product)}>Buy</button>
+                </div>
+            </div>
             </li>
           ))}
         </ul>

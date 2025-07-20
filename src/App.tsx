@@ -1,5 +1,6 @@
 
-import Catalog from './Calalog'
+// import Catalog from './Calalog'
+import Cart from './Cart'
 import { CartProvider } from './CartProvider'
 //import Home from './Home'
 import SiteHeader from './SiteHeader'
@@ -10,7 +11,7 @@ function App() {
     <>
       <SiteHeader />
       <CartProvider>
-        <Catalog />
+        <Cart />
       </CartProvider>
     </>
   )
