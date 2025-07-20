@@ -1,5 +1,6 @@
 
 import Catalog from './Calalog'
+import { CartProvider } from './CartProvider'
 //import Home from './Home'
 import SiteHeader from './SiteHeader'
 
@@ -8,7 +9,9 @@ function App() {
   return (
     <>
       <SiteHeader />
-      <Catalog />
+      <CartProvider>
+        <Catalog />
+      </CartProvider>
     </>
   )
 }

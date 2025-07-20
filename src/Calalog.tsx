@@ -2,6 +2,7 @@ import type { IProduct } from "./product.model";
 import "./Calalog.css";
 import { useState } from "react";
 import ProductDetails from "./ProductDetails";
+import { useCart } from "./CartContext";
 
 export default function Catalog() {
   const products: IProduct[] = [
@@ -180,14 +181,14 @@ export default function Catalog() {
     },
   ];
   const [filter, setFilter] = useState<string>('');
-  const [cart, setCart] = useState<IProduct[]>([]);
+  const cartService = useCart();
 
   const filteredProducts = filter === ''
     ? products
     : products.filter((product) => product.category === filter);
 
   const handleNotify = (product: IProduct) => {
-    setCart([...cart, product]);
+    cartService.addToCart(product);
     console.log(`Product added to cart: ${product.name}`);
   }
     
