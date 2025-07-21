@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './SiteHeader.css';
 
 export default function SiteHeader() {
@@ -5,10 +6,10 @@ export default function SiteHeader() {
         <div className="container">
             <div className="left">
                 <img className="logo" src="/assets/images/logo.png" alt="Logo" />
-                <a>Home</a>
-                <a href="">Catalog</a>
+                <Link to={`/`}>Home</Link>
+                <Link to={`/catalog`}>Catalog</Link>
                 <div className="cartHeader">
-                    <a href="">Cart</a>
+                <Link to={`/cart`}>Cart</Link>
                 </div>
             </div>
             <div className="right">

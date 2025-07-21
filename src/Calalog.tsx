@@ -4,11 +4,21 @@ import { useEffect, useState } from "react";
 import ProductDetails from "./ProductDetails";
 import { useCart } from "./CartContext";
 import axios from "axios";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Catalog() {
-  const [ products, setProducts ] = useState<IProduct[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [filter, setFilter] = useState<string>('');
   const cartService = useCart();
+  const location = useLocation();
+    
+
+  // Read query param
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    const category = query.get('filter') || '';
+    setFilter(category);
+  }, [location.search]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,7 +34,7 @@ export default function Catalog() {
 
   const filteredProducts = filter === ''
     ? products
-    : products.filter((product) => product.category === filter);
+    : products.filter((product) => product.category.toLowerCase() === filter.toLowerCase());
 
   const onNotify = (product: IProduct) => {
     cartService.add(product);
@@ -34,11 +44,11 @@ export default function Catalog() {
     <>
       <div className="container">
         <div className="filters">
-          <a className="button" onClick={() => setFilter('Heads')}>Heads</a>
-          <a className="button" onClick={() => setFilter('Arms')}>Arms</a>
-          <a className="button" onClick={() => setFilter('Torsos')}>Torsos</a>
-          <a className="button" onClick={() => setFilter('Bases')}>Bases</a>
-          <a className="button" onClick={() => setFilter('')}>All</a>
+          <Link className="button" to="/catalog?filter=heads">Heads</Link>
+          <Link className="button" to="/catalog?filter=arms">Arms</Link>
+          <Link className="button" to="/catalog?filter=torsos">Torsos</Link>
+          <Link className="button" to="/catalog?filter=bases">Bases</Link>
+          <Link className="button" to="/catalog?filter=">All</Link>
         </div>
 
         <ul className="products">
@@ -48,11 +58,11 @@ export default function Catalog() {
               <div className="product">
                 <ProductDetails product={product} />
                 <div className="price">
-                    <div className="{product.discount > 0 ? 'strikethrough' : ''}">${(product.price).toFixed(2)}</div>
-                    {product.discount > 0 && <div className="discount">${(product.price * (1 - product.discount)).toFixed(2)}</div>}
-                    <button className="cta" onClick={() => onNotify(product)}>Buy</button>
+                  <div className="{product.discount > 0 ? 'strikethrough' : ''}">${(product.price).toFixed(2)}</div>
+                  {product.discount > 0 && <div className="discount">${(product.price * (1 - product.discount)).toFixed(2)}</div>}
+                  <button className="cta" onClick={() => onNotify(product)}>Buy</button>
                 </div>
-            </div>
+              </div>
             </li>
           ))}
         </ul>

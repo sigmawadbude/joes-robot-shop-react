@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
 import './Home.css';
 export default function Home() {
+
     return (
         <div className="container">
             <div className="hero"></div>
@@ -18,28 +20,28 @@ export default function Home() {
 
             <ul className="robot-parts-cta">
                 <li>
-                    <a className="part">
+                    <Link className="part" to="/catalog?filter=heads">
                         <img src="/assets/images/robot-parts/head-shredder.png" alt="Robot Heads" />
                         <div>ROBOT HEADS</div>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a className="part">
+                    <Link className="part" to="/catalog?filter=arms">
                         <img src="/assets/images/robot-parts/arm-articulated-claw.png" alt="Robot Arms" />
                         <div>ROBOT ARMS</div>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a className="part">
+                    <Link className="part" to="/catalog?filter=torsos">
                         <img src="/assets/images/robot-parts/torso-gauged.png" alt="Robot Torsos" />
                         <div>ROBOT TORSOS</div>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a className="part">
+                    <Link className="part" to="/catalog?filter=bases">
                         <img src="/assets/images/robot-parts/base-spring.png" alt="Robot Bases" />
                         <div>ROBOT BASES</div>
-                    </a>
+                    </Link>
                 </li>
             </ul>
 
