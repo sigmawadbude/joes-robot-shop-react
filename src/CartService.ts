@@ -1,9 +1,13 @@
 import { BehaviorSubject } from "rxjs";
 import type { IProduct } from "./product.model";
 import axios from "axios";
+import type { IUser } from "./user.model";
 class CartService {
   private cart = new BehaviorSubject<IProduct[]>([]);
   cart$ = this.cart.asObservable();
+
+  private user = new BehaviorSubject<IUser | null>(null);
+  user$ = this.user.asObservable();
 
   constructor() {
     axios
@@ -44,6 +48,15 @@ class CartService {
       .post("/api/cart", newCart)
       .then(() => console.log(`Removed ${product.name} from cart!`))
       .catch((err) => console.error("Failed to update cart:", err));
+  }
+
+  signIn(user: IUser) {
+    this.user.next(user);
+    console.log(`User signed in: ${user.email}`);
+  }
+
+  signOut() {
+    this.user.next(null);
   }
 }
 

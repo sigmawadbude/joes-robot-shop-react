@@ -6,6 +6,7 @@ import { CartProvider } from './CartProvider'
 // import ProductDetails from './ProductDetails'
 import Home from './Home'
 import SiteHeader from './SiteHeader'
+import SignIn from './SignIn'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/sign-in" element={<SignIn />} />
           </Routes>
         </CartProvider>
       </Router>
